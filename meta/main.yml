@@ -1,0 +1,26 @@
+galaxy_info:
+  author: thiagogomesverissimo
+  description: install and configure freeradius server
+  company: USpdev
+  role_name: freeradius
+
+  license: "license (BSD, MIT)"
+
+  license: license (GPLv2, CC-BY, etc)
+
+  min_ansible_version: 2.5
+
+  github_branch: master
+
+  platforms:
+   - name: Debian
+     versions:
+     - stretch
+   - name: Ubuntu
+     versions:
+     - bionic
+
+   galaxy_tags:
+     - freeradius
+
+dependencies: []
