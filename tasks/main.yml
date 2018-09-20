@@ -1,2 +1,7 @@
 ---
 # tasks file for ansible-role-freeradius
+- name: install freeradius
+  apt:
+    name: freeradius
+    state: latest
+    update_cache: yes
