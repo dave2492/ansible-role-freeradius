@@ -19,7 +19,7 @@ galaxy_info:
    - name: Ubuntu
      versions:
      - bionic
-
+     
    galaxy_tags:
      - freeradius
 
