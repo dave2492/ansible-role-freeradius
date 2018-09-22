@@ -1,2 +1,19 @@
 ---
 # defaults file for ansible-role-freeradius
+
+freeradius_version: '3.0'
+
+freeradius_clients:
+  - name: localhost
+    ipaddr: 127.0.0.1
+    secret: mysecret
+  - name: switch_filosofia
+    ipaddr: 192.168.15.25
+    secret: mysecret
+
+
+freeradius_mysql:
+  database: freeradius
+  host: mysqlserver
+  user: master
+  password: master

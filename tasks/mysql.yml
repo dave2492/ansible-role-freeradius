@@ -1,0 +1,30 @@
+---
+- name:  enable mysql driver
+  lineinfile:
+    path: "/etc/freeradius/{{ freeradius_version }}/mods-available/sql"
+    regexp: '^\s*driver ='
+    line: "\tdriver = \"rlm_sql_mysql\""
+
+- name:  set dialect to mysql
+  lineinfile:
+    path: "/etc/freeradius/{{ freeradius_version }}/mods-available/sql"
+    regexp: '^\s*dialect ='
+    line: "\tdialect = \"mysql\""
+
+- name:  mysql connection
+  lineinfile:
+    path: "/etc/freeradius/{{ freeradius_version }}/mods-available/sql"
+    regexp: '^#?\s*{{ item.name }} ='
+    line: "\t{{ item.name }} = {{ item.value}}"
+  with_items:
+    - { name: 'server', value: "{{ freeradius_mysql.host}}" }
+    - { name: 'port', value: '3306'}
+    - { name: 'login', value: "{{ freeradius_mysql.user }}" }
+    - { name: 'password', value: "{{ freeradius_mysql.password }}" }
+
+- name:  set radius_db
+  lineinfile:
+    path: "/etc/freeradius/{{ freeradius_version }}/mods-available/sql"
+    regexp: '^\s*radius_db ='
+    line: "\tradius_db = \"{{freeradius_mysql.database}}\""
+
