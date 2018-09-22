@@ -1,0 +1,11 @@
+{% for client in freeradius_clients %}
+
+client {{ client.ipaddr }} {
+    ipaddr    = {{ client.ipaddr }}
+    secret    = {{ client.secret }}
+    shortname = {{ client.name }}
+    nastype   = other
+    require_message_authenticator = no
+}
+
+{% endfor%}

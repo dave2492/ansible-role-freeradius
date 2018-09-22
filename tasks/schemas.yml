@@ -1,0 +1,10 @@
+---
+- name: Import main schema for mysql
+  mysql_db:
+    name: "{{ freeradius_mysql.database }}"
+    login_host: "{{ freeradius_mysql.host }}"
+    login_user: "{{ freeradius_mysql.user }}"
+    login_password: "{{ freeradius_mysql.password }}"
+    state: import
+    target: "/etc/freeradius/{{ freeradius_version }}/mods-config/sql/main/mysql/schema.sql"
+  ignore_errors: yes

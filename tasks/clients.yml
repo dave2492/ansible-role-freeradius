@@ -1,0 +1,7 @@
+---
+- name: build template file
+  template:
+    src: templates/clients.j2
+    dest: /etc/freeradius/clients.conf
+  notify:
+    restart freeradius
