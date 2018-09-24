@@ -27,6 +27,7 @@ Including an example of how to use your role (for instance, with variables passe
 Some checks:
 ------------
 
-    radtest testing password localhost 0 mysecret
+    insert into radcheck (username,attribute,op,value) values("maria", "Cleartext-Password", ":=", "m123");
+    radtest maria m123 localhost 0 mysecret
     tail -f /var/log/freeradius/radius.log
 
