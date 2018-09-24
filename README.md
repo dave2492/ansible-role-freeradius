@@ -1,7 +1,7 @@
 Freeradius
 ==========
 
-Install and configure freeradius
+Install and configure freeradius with MySQL on debian 9 based on [documentation](https://wiki.freeradius.org/guide/SQL-HOWTO-for-freeradius-3.x-on-Debian-Ubuntu)
 
 Requirements
 ------------
@@ -23,4 +23,10 @@ Including an example of how to use your role (for instance, with variables passe
     - hosts: servers
       roles:
          - uspdev.freeradius
+
+Some checks:
+------------
+
+    radtest testing password localhost 0 mysecret
+    tail -f /var/log/freeradius/radius.log
 

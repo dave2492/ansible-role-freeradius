@@ -8,7 +8,7 @@ freeradius_clients:
     ipaddr: 127.0.0.1
     secret: mysecret
   - name: switch_filosofia
-    ipaddr: 192.168.15.25
+    ipaddr: 192.168.66.1
     secret: mysecret
 
 
