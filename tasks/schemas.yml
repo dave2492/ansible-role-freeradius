@@ -1,4 +1,15 @@
 ---
+- name: check if tables exists
+  shell: >
+    mysql
+    --host={{ freeradius_mysql.host }}
+    --database={{ freeradius_mysql.database }}
+    --user={{ freeradius_mysql.user }}
+    --password={{ freeradius_mysql.password }}
+    -e 'SHOW TABLES;' | grep -c radcheck
+  register: dbstatus
+  failed_when: dbstatus.rc == 2
+
 - name: Import main schema for mysql
   mysql_db:
     name: "{{ freeradius_mysql.database }}"
@@ -7,4 +18,4 @@
     login_password: "{{ freeradius_mysql.password }}"
     state: import
     target: "/etc/freeradius/{{ freeradius_version }}/mods-config/sql/main/mysql/schema.sql"
-  ignore_errors: yes
+  when: dbstatus.stdout == "0"

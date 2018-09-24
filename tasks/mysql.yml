@@ -28,3 +28,27 @@
     regexp: '^\s*radius_db ='
     line: "\tradius_db = \"{{freeradius_mysql.database}}\""
 
+- name:  set read_clients to yes
+  lineinfile:
+    path: "/etc/freeradius/{{ freeradius_version }}/mods-available/sql"
+    regexp: '^\s*read_clients ='
+    line: "\tread_clients = yes"
+
+# https://wiki.freeradius.org/guide/SQL-HOWTO-for-freeradius-3.x-on-Debian-Ubuntu#configuring-freeradius-to-use-sql
+- name:  enable SQL module
+  file:
+    state: link
+    src: "/etc/freeradius/{{ freeradius_version }}/mods-available/sql"
+    dest: "/etc/freeradius/{{ freeradius_version }}/mods-enabled/sql"
+
+# Edit /etc/raddb/sites-available/default and uncomment the line containing 'sql' in the authorize{} section.
+# Optionally add or uncomment 'sql' to the session{} section if you want to do Simultaneous-Use detection
+# Optionally add or uncomment 'sql' to the post-auth{} section if you want to log all Authentication attempts to SQL.
+# Also uncomment the line saying 'sql' in the accounting{} section to tell FreeRADIUS to store accounting records in SQL as well.
+#- name:  enable SQL mode in sites-available/default
+#  lineinfile:
+#    path: "/etc/freeradius/{{ freeradius_version }}/sites-available/default"
+#    regexp: '^\s*-sql'
+#    line: "\tsql"
+
+# /etc/raddb/sites-available/inner-tunnel and uncomment the line containing 'sql' under "authorize {}"
