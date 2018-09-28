@@ -3,14 +3,15 @@
 
 freeradius_version: '3.0'
 
+freeradius_clients_default_password: mysecret
+
 freeradius_clients:
   - name: localhost
     ipaddr: 127.0.0.1
-    secret: mysecret
+    secret: "{{ freeradius_clients_default_password }}"
   - name: switch_filosofia
     ipaddr: 192.168.66.1
-    secret: mysecret
-
+    secret: "{{ freeradius_clients_default_password }}"
 
 freeradius_mysql:
   database: freeradius
