@@ -2,7 +2,7 @@
 
 client {{ client.name }} {
     ipaddr    = {{ client.ipaddr }}
-    secret    = {{ client.secret }}
+    secret    = {{ client.secret or freeradius_clients_default_password }}
     shortname = {{ client.name }}
     nastype   = other
     require_message_authenticator = no
