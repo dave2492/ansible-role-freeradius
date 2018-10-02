@@ -22,3 +22,9 @@
     state: present
   with_items:
     - MySQL-python
+
+- name: enable freeradius
+  service:
+    name: freeradius
+    enabled: yes
+

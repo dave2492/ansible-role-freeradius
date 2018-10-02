@@ -3,5 +3,3 @@
   service:
     name: freeradius
     state: restarted
-    enabled: yes
-
