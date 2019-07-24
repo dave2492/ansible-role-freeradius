@@ -17,5 +17,5 @@
     login_user: "{{ freeradius_mysql.user }}"
     login_password: "{{ freeradius_mysql.password }}"
     state: import
-    target: "/etc/freeradius/{{ freeradius_version }}/mods-config/sql/main/mysql/schema.sql"
-  when: dbstatus.stdout == "0"
+    target: "/etc/{{ freeradius_etc_dir }}/mods-config/sql/main/mysql/schema.sql"
+  when: dbstatus.stdout == "0" and freeradius.mysql.load_schema == True

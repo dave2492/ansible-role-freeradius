@@ -2,6 +2,6 @@
 - name: clients.j2
   template:
     src: templates/clients.j2
-    dest: "/etc/freeradius/{{ freeradius_version }}/clients.conf"
+    dest: "/etc/{{ freeradius_etc_dir }}/clients.conf"
   notify:
     restart freeradius

@@ -1,0 +1,4 @@
+---
+freeradius_etc_dir: 'freeradius/3.0'
+freeradius_service_name: freeradius
+

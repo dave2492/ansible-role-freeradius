@@ -1,9 +1,11 @@
 {% for client in freeradius_clients %}
 
+{% if client.comment is defined %}
+# {{client.comment}}
+{% endif %}
 client {{ client.name }} {
     ipaddr    = {{ client.ipaddr }}
     secret    = {{ client.secret|default(freeradius_clients_default_password,true) }}
-    shortname = {{ client.name }}
     nastype   = other
     require_message_authenticator = no
 }

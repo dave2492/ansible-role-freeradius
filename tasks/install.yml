@@ -1,30 +1,13 @@
 ---
+
 - name: install freeradius
-  apt:
-    name: "{{ item }}"
-    state: latest
-    update_cache: yes
-  with_items:
-    - freeradius
-    - freeradius-mysql
-    - freeradius-utils
-    - default-libmysqlclient-dev
-    - mysql-client
-
-- name: Ensure Pip is installed.
-  package:
-    name: python-pip
+  packages:
+    name: "{{ freeradius_packages }}"
     state: present
 
-- name: Install the MySQL-python through pip
-  pip:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - MySQL-python
-
-- name: enable freeradius
+- name: enable and start freeradius
   service:
-    name: freeradius
+    name: "{{ freeradius_service_name }}"
     enabled: yes
+    state: started
 

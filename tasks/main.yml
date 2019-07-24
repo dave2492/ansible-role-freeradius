@@ -1,5 +1,12 @@
 ---
+
+- include_vars: "{{ item }}"
+  with_first_found:
+    - "../vars/{{ ansible_os_family }}.yml"
+    - "../vars/default.yml"
+
 - import_tasks: install.yml
+- import_tasks: files.yml
 - import_tasks: clients.yml
 - import_tasks: schemas.yml
 - import_tasks: log.yml

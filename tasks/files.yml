@@ -1,0 +1,43 @@
+---
+- name: copy files
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner | default(freeradius_owner) }}"
+    group: "{{ item.group | default(freeradius_group) }}"
+    mode: "{{ item.mode | default(freeradius_mode) }}"
+  with_items: "{{ freeradius_copy_files }}"
+  notify: restart freeradius
+
+- name: link files
+  file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  with_items: "{{ freeradius_link_files }}"
+  notify: restart freeradius
+
+- name: enable sites
+  file:
+    src: "/etc/raddb/sites-available/{{ item }}"
+    dest: "/etc/raddb/sites-enabled/{{ item }}"
+    state: link
+  with_items: "{{ freeradius_sites_enabled }}"
+  notify: restart freeradius
+
+- name: disable sites
+  file:
+    path: "/etc/raddb/sites-enabled/{{ item }}"
+    state: absent
+  with_items: "{{ freeradius_sites_disabled }}"
+  notify: restart freeradius
+
+- name: include dictionaries
+  lineinfile:
+    dest: "/etc/raddb/dictionary"
+    insertafter: "{{ item.after }}"
+    line: "$INCLUDE {{ item.name }}"
+    state: present
+  with_items: "{{ freeradius_dicts }}"
+  notify: restart freeradius
+

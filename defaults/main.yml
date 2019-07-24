@@ -1,8 +1,13 @@
 ---
 # defaults file for ansible-role-freeradius
+# some values are Debian specific, override if using RedHat
 
-freeradius_version: '3.0'
+freeradius_packages:
+  - freeradius
+  - freeradius-mysql
+  - freeradius-utils
 
+freeradius_enable_log: True
 freeradius_clients_default_password: mysecret
 
 freeradius_clients:
@@ -18,3 +23,16 @@ freeradius_mysql:
   host: mysqlserver
   user: master
   password: master
+  load_schema: True
+
+freeradius_owner: root
+freeradius_group: radiusd
+freeradius_mode: '0640'
+
+freeradius_copy_files: []
+freeradius_link_files: []
+
+freeradius_sites_enabled: []
+freeradius_sites_disabled: []
+
+freeradius_dicts: []

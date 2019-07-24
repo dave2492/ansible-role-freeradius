@@ -1,19 +1,19 @@
 ---
 - name:  enable mysql driver
   lineinfile:
-    path: "/etc/freeradius/{{ freeradius_version }}/mods-available/sql"
+    path: "/etc/{{ freeradius_etc_dir }}/mods-available/sql"
     regexp: '^\s*driver ='
     line: "\tdriver = \"rlm_sql_mysql\""
 
 - name:  set dialect to mysql
   lineinfile:
-    path: "/etc/freeradius/{{ freeradius_version }}/mods-available/sql"
+    path: "/etc/{{ freeradius_etc_dir }}/mods-available/sql"
     regexp: '^\s*dialect ='
     line: "\tdialect = \"mysql\""
 
 - name:  mysql connection
   lineinfile:
-    path: "/etc/freeradius/{{ freeradius_version }}/mods-available/sql"
+    path: "/etc/{{ freeradius_etc_dir }}/mods-available/sql"
     regexp: '^#?\s*{{ item.name }} ='
     line: "\t{{ item.name }} = {{ item.value}}"
   with_items:
@@ -24,30 +24,32 @@
 
 - name:  set radius_db
   lineinfile:
-    path: "/etc/freeradius/{{ freeradius_version }}/mods-available/sql"
+    path: "/etc/{{ freeradius_etc_dir }}/mods-available/sql"
     regexp: '^\s*radius_db ='
-    line: "\tradius_db = \"{{freeradius_mysql.database}}\""
+    line: "\tradius_db = \"{{ freeradius_mysql.database }}\""
 
-- name:  set read_clients to yes
-  lineinfile:
-    path: "/etc/freeradius/{{ freeradius_version }}/mods-available/sql"
-    regexp: '^\s*read_clients ='
-    line: "\tread_clients = yes"
+# Removed since clients are placed into the clients.conf file so this should not be enabled
+#- name:  set read_clients to yes
+#  lineinfile:
+#    path: "/etc/{{ freeradius_etc_dir }}/mods-available/sql"
+#    regexp: '^\s*read_clients ='
+#    line: "\tread_clients = yes"
 
 # https://wiki.freeradius.org/guide/SQL-HOWTO-for-freeradius-3.x-on-Debian-Ubuntu#configuring-freeradius-to-use-sql
 - name:  enable SQL module
   file:
     state: link
-    src: "/etc/freeradius/{{ freeradius_version }}/mods-available/sql"
-    dest: "/etc/freeradius/{{ freeradius_version }}/mods-enabled/sql"
+    src: "/etc/{{ freeradius_etc_dir }}/mods-available/sql"
+    dest: "/etc/{{ freeradius_etc_dir }}/mods-enabled/sql"
 
+# You may want to do the following and perhaps use freeradius_copy_files to install you customized copies:
 # Edit /etc/raddb/sites-available/default and uncomment the line containing 'sql' in the authorize{} section.
 # Optionally add or uncomment 'sql' to the session{} section if you want to do Simultaneous-Use detection
 # Optionally add or uncomment 'sql' to the post-auth{} section if you want to log all Authentication attempts to SQL.
 # Also uncomment the line saying 'sql' in the accounting{} section to tell FreeRADIUS to store accounting records in SQL as well.
 #- name:  enable SQL mode in sites-available/default
 #  lineinfile:
-#    path: "/etc/freeradius/{{ freeradius_version }}/sites-available/default"
+#    path: "/etc/{{ freeradius_etc_dir }}/sites-available/default"
 #    regexp: '^\s*-sql'
 #    line: "\tsql"
 

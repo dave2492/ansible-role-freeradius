@@ -1,5 +1,5 @@
 ---
 - name: restart freeradius
   service:
-    name: freeradius
+    name: "{{ freeradius_service_name }}"
     state: restarted

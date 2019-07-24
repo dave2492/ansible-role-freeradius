@@ -1,7 +1,7 @@
 Freeradius
 ==========
 
-Install and configure freeradius with MySQL on debian 9 based on [documentation](https://wiki.freeradius.org/guide/SQL-HOWTO-for-freeradius-3.x-on-Debian-Ubuntu)
+Install and configure freeradius with MySQL based on [documentation](https://wiki.freeradius.org/guide/SQL-HOWTO-for-freeradius-3.x-on-Debian-Ubuntu)
 
 Requirements
 ------------
@@ -11,6 +11,7 @@ None
 Role Variables
 --------------
 
+See defaults/main.yml
 
 Dependencies
 ------------

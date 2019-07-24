@@ -1,0 +1,4 @@
+---
+freeradius_etc_dir: raddb
+freeradius_service_name: radiusd
+
