@@ -9,4 +9,4 @@
     - { name: 'auth', value: 'yes'}
     - { name: 'auth_badpass', value: 'yes'}
     - { name: 'auth_goodpass', value: 'yes'}
-  when freeradius_enable_log == True
+  when: freeradius_enable_log == True

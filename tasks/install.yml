@@ -1,7 +1,6 @@
 ---
-
 - name: install freeradius
-  packages:
+  package:
     name: "{{ freeradius_packages }}"
     state: present
 
@@ -10,4 +9,3 @@
     name: "{{ freeradius_service_name }}"
     enabled: yes
     state: started
-
