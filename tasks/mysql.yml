@@ -1,4 +1,14 @@
 ---
+- name: systemd should load mysql before freeradius
+  lineinfile:
+    path: /etc/systemd/system/multi-user.target.wants/radiusd.service
+    regexp: '^After='
+    line: "After=mariadb.service"
+
+- name: force systemd to reread configs
+  systemd:
+    daemon_reload: yes
+
 - name:  enable mysql driver
   lineinfile:
     path: "/etc/{{ freeradius_etc_dir }}/mods-available/sql"
